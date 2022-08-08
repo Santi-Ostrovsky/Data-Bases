@@ -16,4 +16,35 @@ MODELO ENTIDAD-RELACIÓN
 
 (*) Cardinalidad: la cardinalidad de una relación es el número de filas relacionadas de cada uno de los objetos en la relación. Las filas se relacionan mediante de expresión de la relación. Normalmente, esta expresión hace referencia a las claves 'principal' y 'foránea' de las tablas subyacentes. -- En otras palabras, es el número de entidades con el cual cual otra entidad se puede asociar mediante una relación binaria. Esa 'cardinalidad' puede ser 'uno a uno' (1 → 1), 'uno a muchos' (1 → N), 'muchos a uno' (N → 1) o 'muchos a muchos' (N → M - se usa 'M' para que se entienda que n → n no necesariamente implica que sean la misma cantidad de entidades en ambos lados de la relación).
 
+-------------------------------------------------------------
+
+CLAVE PRIMARIA
+
+Las bases están compuestas por tablas, en las que cada dato definido debe estar asociado a una CLAVE PRIMARIA:
+
+-- CLIENTES --
+CLAVE           NOMBRE              DIRECCIÓN               DNI
+ 01             Santiago            Abc 123 4D              23.456.789
+ 02             Mathias             Efg 456 7H              98.765.432
+
+********************
+
+-- VENTAS --
+CLAVE           CLIENTE              MONTO $               FECHA
+ A1               01                  1.234              01/02/2022
+ A2               02                  5.678              03/04/2022
+
+********************
+
+CADA LINEA / DATO PRIMARIO DEBE ESTAR ASOCIADO A UNA CLAVE PRIMARIA
+
+-------------------------------------------------------------
+
+CLAVE FORÁNEA
+
+Cuando en una tabla 'A' es necesario llamar datos de otra tabla 'B' por su ID (clave primaria), desde la tabla 'A' esas claves se van a llamar CLAVES FORÁNEAS (claves primarias ajenas a las de la tabla en la cual se está trabajando).
+
+-------------------------------------------------------------
+
+
 
