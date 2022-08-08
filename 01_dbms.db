@@ -16,3 +16,4 @@ MODELO ENTIDAD-RELACIÓN
 
 (*) Cardinalidad: la cardinalidad de una relación es el número de filas relacionadas de cada uno de los objetos en la relación. Las filas se relacionan mediante de expresión de la relación. Normalmente, esta expresión hace referencia a las claves 'principal' y 'foránea' de las tablas subyacentes. -- En otras palabras, es el número de entidades con el cual cual otra entidad se puede asociar mediante una relación binaria. Esa 'cardinalidad' puede ser 'uno a uno' (1 → 1), 'uno a muchos' (1 → N), 'muchos a uno' (N → 1) o 'muchos a muchos' (N → M - se usa 'M' para que se entienda que n → n no necesariamente implica que sean la misma cantidad de entidades en ambos lados de la relación).
 
+
