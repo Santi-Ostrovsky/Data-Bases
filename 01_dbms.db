@@ -45,6 +45,3 @@ CLAVE FORÁNEA
 Cuando en una tabla 'A' es necesario llamar datos de otra tabla 'B' por su ID (clave primaria), desde la tabla 'A' esas claves se van a llamar CLAVES FORÁNEAS (claves primarias ajenas a las de la tabla en la cual se está trabajando).
 
 -------------------------------------------------------------
-
-
-
