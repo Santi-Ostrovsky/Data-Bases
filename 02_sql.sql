@@ -231,7 +231,7 @@ SELECT * FROM [table] WHERE [column]=[value];
 /*
     --> Devolver una lista con todos los campos 'nombre' y 'apellido' de todas las personas que, su apellido sea 'Wayne' y su nombre 'John', o que vivan en la ciudad 2 (Buenos Aires), ordenados alfabéticamente por el apellido, y si dos o mas resultados tienen el mismo apellido, ordenar los mismos alfabéticamente por nombre.
 
-//////////
+********************
 
 OPERADOR LIKE       */
 
@@ -289,7 +289,44 @@ SELECT DISTINCT nombre FROM personas;
           2  | Ostrovsky | Santiago |  2
           3  | Wayne     | John     |  3
 
+(*) Puede solicitarse un DISTINCT de varios campos separados por coma:      */
+    SELECT DISTINCT nombre, apellido FROM personas;
 
+/* --> Devolver lista de la tabla personas con la primera coincidencia de cada nombre y cada apellido. Si alguno de los campos se repite, que no sea seleccionado.
 
 ********************
+
+CONTATENAR INFORMACION  */
+
+SELECT (nombre || ' ' || apellido) AS "Nombre y Apellido" FROM personas;
+
+/* >>> ↓
+Nombre y Apellido
+------------------
+Toni Tralice
+Santiago Ostrovsky
+John Wayne
+(3 rows)
+
+(*) 'as' permite dar un alias a la información solicitada.
+(*) '||' permite concatenar campos dentro de un parentesis.
+(*) Si hubiera una línea en la tabla que no tuviera nombre o apellido, al no poder concatenar ambos valores dejaría un espacio vacío en la lista devuelta y contaría como una línea (habría devuelto '4 rows').
+
+********************
+
+ALIAS --> Es el nombre que se le asigna a una tabla de resultados resueltos por una instrucción SELECT: */
+
+SELECT nombre AS 'N' FROM personas;
+
+/* >>> ↓
+       N
+------------------
+Toni Tralice
+Santiago Ostrovsky
+John Wayne
+(3 rows)
+
+********************
+
+
 */
