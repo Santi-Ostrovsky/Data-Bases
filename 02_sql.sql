@@ -38,8 +38,10 @@ DESDE CONSOLA - psql shell (terminar todas las instrucciones a psql con ';')
     - \! clear --> limpiar la consola.
     - \q --> salir de la consola
 
-    - create database [database_name]; --> levantar una nueva base de datos (terminar con ';' para indicar a PostgreSQL que se termino de dar una instrucción).
-    - drop database [database_name]; --> eliminar una base de datos.
+    - CREATE DATABASE [database_name]; --> levantar una nueva base de datos (terminar con ';' para indicar a PostgreSQL que se termino de dar una instrucción).
+    - DROP DATABASE [database_name]; --> eliminar una base de datos.
+    - DROP TABLE [table_name]; --> eliminar una tabla.
+    - DELETE --> eliminar fila en tabla
 
 -------------------------------------------------------------
 
@@ -131,6 +133,7 @@ VALUES ('John', 'Wayne', 3);
 (*) --> los inserts a una misma tabla pueden hacerse en una única instrucción. Ej: ciudades
         INSERT INTO ciudades (nombre) VALUE ('Tucuman'), ('Buenos Aires'), ('New York');
 
+(*) --> Si por algún motivo, alguna de las filas no pudiera ser insertada en alguna de las tablas, SQL de todas maneras le va a asignar un ID a esa fila que no se insertó (por ejemplo, porque a una persona se le asignó la ciudad 99, que no existe), y ese ID va a quedar reservado a ese resultado. Si se insertara otra fila nueva luego de la inserción fallida, la nueva fila va a tener un ID que NO CORRELATIVO a la fila anterior por este motivo.
 
 ********************
 
@@ -148,6 +151,145 @@ PARA VER Y SELECCIONAR CAMPOS DE UNA TABLA GENERADA:        */
 
 ********************
 
+CONSULTAS Y MANIPULACIÓN DE DATOS
+
+SELECT [column] FROM [table]; --> ej:       */
+
+SELECT nombre FROM ciudades;
+
+/*
+>>>    nombre
+    ------------
+    Tucuman
+    Buenos Aires
+    New York
+
+(*) Al no existir un parámetro de ordenamiento ORDER BY, los resultados aparecen ordenados por número de ID.
+
+//////////
+
+SELECT * FROM [table] ORDER BY [column];
+--> Selecciona todos los elementos de una tabla 'x' y los ordena de acuerdo a la columna ingresada. Ej:         */
+
+SELECT * FROM personas ORDER BY apellido;
+
+/*
+>>>  id  | apellido  |  nombre  | ciudad
+    -----|-----------|----------|--------
+      2  | Ostrovsky | Santiago |  2
+      1  | Tralice   | Toni     |  1
+      3  | Wayne     | John     |  3
+
+(*) Si se quisiera ordenar por orden ascendente en lugar de descendente, se  pone 'desc' al final de la instruccion:        */
+    SELECT * FROM personas ORDER BY apellido DESC;
+/*
+    >>>  id  | apellido  |  nombre  | ciudad
+        -----|-----------|----------|--------
+          3  | Wayne     | John     |  3
+          1  | Tralice   | Toni     |  1
+          2  | Ostrovsky | Santiago |  2
+
+(*) Si hubieran dos o mas filas con el mismo valor en el campo ingresado como parámetro para el ordenamiento, puede ingresarse un segundo parámetro separado por coma, para que, por ejemplo, una vez que las personas estén ordenadas por apellido, si hubiera dos o mas con el mismo apellido, que luego a esas filas se las ordene alfabéticamente por nombre:       */
+    SELECT * FROM personas ORDER BY apellido, nombre.
+/*
+//////////
+
+SELECT * FROM [table] WHERE [column]=[value];
+--> Seleccionar todos los elementos de una tabla, cuyo valor en la columna 'x' coincida con el valor 'y'. Ej:       */
+    SELECT * FROM personas WHERE nombre='Santiago';
+
+/*
+    >>>  id  | apellido  |  nombre  | ciudad
+        -----|-----------|----------|--------
+          2  | Ostrovsky | Santiago |  2
+
+(*) En lugar de seleccionar todos los elementos, pueden especificarse qué columnas se quieren seleccionar de la tabla, separadas por coma:      */
+    SELECT nombre, ciudad FROM personas WHERE apellido='Ostrovsky';
+/*
+    >>>   nombre  | ciudad
+        ----------|--------
+         Santiago |  2
+
+(*) Estos resultados incluso pueder ordenarse con un ORDER BY:  */+
+    SELECT nombre, apellido FROM personas WHERE ciudad=2 ORDER BY apellido, nombre;
+/*
+    --> Devolver una lista con los campos 'nombre' y 'apellido' de todas las personas que viven en la ciudad 2 (Buenos Aires), ordenadas alfabeticamente por el apellido, y en caso de que hayan dos o mas con el mismo apellido, ordenar dichos resultados alfabéticamente por nombre.
+
+(*) Pueden agregarse más filtros (WHERE) a través del keyword AND:      */
+    SELECT nombre, apellido FROM personas WHERE ciudad=2 AND nomre="Santiago" ORDER BY apellido;
+/*
+    --> Devolver una lista con todos los capos 'nombre' y 'apellido' de todas las personas que vivan en la ciudad 2 (Buenos Aires) y su primer nombre sea "Santiago", ordenados alfabéticamente por el apellido.
+
+(*) Así como existe el AND, existe el OR:       */
+    SELECT nombre, apellido FROM personas WHERE ciudad=1 OR ciudad=2 ORDER BY apellido, nombre;
+/*
+    --> Devolver una lista con todos los campos 'nombre' y 'apellido' de todas las personas que vivan en la ciudad 1 (Tucuman) o en la ciudad 2 (Buenos Aires), ordenados alfabéticamente por el apellido, y si dos o mas resultados tienen el mismo apellido, ordenar los mismos alfabéticamente por nombre.
+
+(*) Igual que en JavaScript, las condiciones pueden agruparse y concatenarse:       */
+    SELECT nombre, apellido FROM personas,
+    WHERE (apellido="Wayne" AND nombre="John") OR ciudad=2 ORDER BY apellido, nombre;
+/*
+    --> Devolver una lista con todos los campos 'nombre' y 'apellido' de todas las personas que, su apellido sea 'Wayne' y su nombre 'John', o que vivan en la ciudad 2 (Buenos Aires), ordenados alfabéticamente por el apellido, y si dos o mas resultados tienen el mismo apellido, ordenar los mismos alfabéticamente por nombre.
+
+//////////
+
+OPERADOR LIKE       */
+
+SELECT * FROM personas WHERE nombre LIKE 'S%';
+
+/* --> Devolver una lista de todas las lineas en la tabla 'personas', cuyos nombres empiecen con 'S' (% significa "cualquier cosa", es decir, cuyos nombres sean igual a S + cualquier cosa)
+
+    >>>  id  | apellido  |  nombre  | ciudad
+        -----|-----------|----------|--------
+          2  | Ostrovsky | Santiago |  2
+*/
+
+SELECT * FROM personas WHERE apellido LIKE '%ce';
+
+/* --> Devolver una lista de todas las lineas en la tabla 'personas', cuyos apellidos terminen con 'ce' (cualquier cosa + ce)
+
+    >>>  id  | apellido  |  nombre  | ciudad
+        -----|-----------|----------|--------
+          1  | Tralice   | Tony     |  1
+*/
+
+SELECT * FROM personas WHERE apellido LIKE '%e%';
+
+/* --> Devolver una lista de todas las lineas en la tabla 'personas', cuyos apellidos tengan una 'e' (cualquier cosa + e + cualquier cosa - No es necesario que la letra 'e' esté en el medio, puede ser la primera o la última)
+
+    >>>  id  | apellido  |  nombre  | ciudad
+        -----|-----------|----------|--------
+          1  | Tralice   | Tony     |  1
+          3  | Wayne     | John     |  3
+
+(*) SQL es sensible a las mayúsculas, por lo que si en lugar de filtrar por 'e' lo hacía por 'E', no se iba a encontrar ningún resultado, a menos que se cambie 'LIKE' por 'ILIKE':   */
+
+SELECT * FROM peronas WHERE apellido ILIKE '%T%';
+
+/* --> Devolver una lista de todas las lineas en la tabla 'personas', cuyos apellidos tengan 't' o 'T':
+
+    >>>  id  | apellido  |  nombre  | ciudad
+        -----|-----------|----------|--------
+          1  | Tralice   | Tony     |  1
+          2  | Ostrovsky | Santiago |  2
+
+********************
+
+OPERADOR DISTINCT
+
+DISTINCT es un operador para seleccionar por campos de manera distintiva, SQL retorna una única coincidencia, la primera que encuentra.
+
+Si hubieran dos "Santiago" en la lista de personas y utilizaramos el DISTINCT para traer todas las coincidencias, "Santiago" aparecería una única vez (el primer resultado encontrado, ya sea por ID o por el orden que se le de a la búsqueda)     */
+
+SELECT DISTINCT nombre FROM personas;
+
+/*  >>>  id  | apellido  |  nombre  | ciudad
+        -----|-----------|----------|--------
+          1  | Tralice   | Tony     |  1
+          2  | Ostrovsky | Santiago |  2
+          3  | Wayne     | John     |  3
 
 
+
+********************
 */
