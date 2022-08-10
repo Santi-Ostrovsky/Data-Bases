@@ -43,10 +43,12 @@ DESDE CONSOLA - psql shell (terminar todas las instrucciones a psql con ';')
     - DROP TABLE [table_name]; --> eliminar una tabla.
     - DELETE --> eliminar fila en tabla
 
--------------------------------------------------------------
+------------------------------------------------------------- 
 
-AGRUPACIONES POR CLAUSULA
 
+
+
+********************
 
 
 */

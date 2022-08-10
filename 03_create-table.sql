@@ -61,25 +61,34 @@ VALUES (value1,value2,...)
 
 EN CONSOLA ↓↓↓      */
 
-INSERT INTO ciudades (nombre)
-VALUES ('Tucuman');
+INSERT INTO ciudades (nombre) VALUES ('Tucuman');
 
-INSERT INTO ciudades (nombre)
-VALUES ('Buenos Aires');
+INSERT INTO ciudades (nombre) VALUES ('Buenos Aires');
 
-INSERT INTO ciudades (nombre)
-VALUES ('New York');
+INSERT INTO ciudades (nombre) VALUES ('New York');
 
-INSERt INTO personas (nombre, apellido, ciudad)
-VALUES ('Toni', 'Tralice', 1);
+INSERt INTO personas (nombre, apellido, ciudad) VALUES ('Toni', 'Tralice', 1);
 
-INSERt INTO personas (nombre, apellido, ciudad)
-VALUES ('Santi', 'Ostrovsky', 2);
+INSERt INTO personas (nombre, apellido, ciudad) VALUES ('Santi', 'Ostrovsky', 2);
 
-INSERt INTO personas (nombre, apellido, ciudad)
-VALUES ('John', 'Wayne', 3);
+INSERt INTO personas (nombre, apellido, ciudad) VALUES ('John', 'Wayne', 3);
 
 /*
+CIUDADES
+   id  |    nombre
+-----------------------
+    1  |   Tucuman
+    2  |   Buenos Aires
+    3  |   New York
+   (3 rows)
+
+PERSONAS
+ id  | apellido  |  nombre  | ciudad
+-----|-----------|----------|-------
+  1  | Tralice   | Toni     |     1
+  2  | Ostrovsky | Santiago |     2
+  3  | Wayne     | John     |     3
+
 (*) --> quedaron ingresadas las ciudades Tucuman, Buenos Aires y New York, con los IDs 1, 2 y 3, respectivamente; y las personas Toni Tralice (de 1 - Tucuman), Santi Ostrovsky (de 2 - Buenos Aires) y John Wayne (de 3 - New York).
 
 (*) --> el ID no debe insertarse en la tabla, ya que por el tipo de dato SERIAL se genera de forma automática.
