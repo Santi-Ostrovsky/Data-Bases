@@ -1,0 +1,70 @@
+SQL --> Structured Query Language
+
+Es el lenguaje de consultas más utilizado para las consultas a bases de datos. Está compuesto por Cláusulas, y tiene expresiones y declaraciones al igual que JavaScript.
+
+-------------------------------------------------------------
+
+DECLARACIONES
+
+    - update
+    - set
+    - where
+
+--> TODAS las declaraciones SQL terminan en ';' o ','.
+
+********************
+
+CREATE TABLE table_name
+(
+    column_name1 data_type(size),
+    column_name2 data_type(size),
+    column_name3 data_type(size),
+    [...]
+);
+
+********************
+
+Las bases de datos pueden iniciarse y accederse desde una interfaz gráfica como pgadmin(PostgreSQL) o desde la consola (psql shell).
+
+https://www.postgresql.org/docs/current/index.html
+
+DESDE CONSOLA - psql shell (terminar todas las instrucciones a psql con ';')
+
+    - \l --> sirve para ver una lista de todas las bases levantadas anteriormente.
+    - \c [database_name] --> acceder a una base de datos de la lista anterior.
+    - \c [directory_name] --> volver hacia atrás.
+    - \! clear --> limpiar la consola.
+    - \q --> salir de la consola
+
+    - create database [database_name]; --> levantar una nueva base de datos (terminar con ';' para indicar a PostgreSQL que se termino de dar una instrucción).
+    - drop database [database_name]; --> eliminar una base de datos.
+
+********************
+
+CREATE TABLE ciudades
+(
+    id serial PRIMARY KEY,
+    nombre varchar(255) UNIQUE
+);
+
+CREATE TABLE personas
+(
+    id serial PRIMARY KEY,
+    apellido varchar(255) NOT NULL,
+    nombre varchar(255) UNIQUE,
+    ciudad integer references ciudades (id)
+);
+
+(*) -- Descripción de líneas
+
+    - 44 --> 'id' es el atributo que contiene a la primary key.
+         --> 'serial' es el tipo de dato en SQL que permite la generación automática de números identificadores en incremento, por lo que las claves primarias siempre (o mayormente) van a ser del tipo de dato serial (4 bytes).
+         --> 'KEY' es un 'constraint', una regla que se le define a un atributo - https://www.postgresql.org/docs/14/ddl-constraints.html
+
+    - 45 --> atributo 'nombre' que va a ser un string de caracteres variables (varchar) con una longitud máxima de 255 caracteres.
+         --> constraint UNIQUE, indica que no se puede repetir (no pueden haber dos países con el mismo nombre)
+    
+    - 53 --> constraint 'NOT NULL' indica que no puede ser un campo vacío.
+
+    - 55 --> atributo 'ciudades'
+         --> 'references' [ciudades] (id), indica que el campo va a corresponder 
