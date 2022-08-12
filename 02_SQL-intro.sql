@@ -31,24 +31,20 @@ https://www.postgresql.org/docs/current/index.html
 
 DESDE CONSOLA - psql shell (terminar todas las instrucciones a psql con ';')
 
+    https://www.postgresql.org/docs/12/app-psql.html
     - \l --> sirve para ver una lista de todas las bases levantadas anteriormente.
     - \c [database_name] --> acceder a una base de datos de la lista anterior.
     - \c [directory_name] --> volver hacia atrás.
     - \dt --> describe table (desplegar las tablasen la DB donde esta posicionada la consola).
+    - \d [table_name] --> describe (mostrar tabla en detalle).
     - \! clear --> limpiar la consola.
     - \q --> salir de la consola
 
+    https://mariadb.com/kb/en/basic-sql-statements/
     - CREATE DATABASE [database_name]; --> levantar una nueva base de datos (terminar con ';' para indicar a PostgreSQL que se termino de dar una instrucción).
+    - CREATE TABLE [table_name]; --> Crear una nueva tabla.
     - DROP DATABASE [database_name]; --> eliminar una base de datos.
     - DROP TABLE [table_name]; --> eliminar una tabla.
     - DELETE --> eliminar fila en tabla
 
-------------------------------------------------------------- 
-
-
-
-
-********************
-
-
-*/
+------------------------------------------------------------- */
