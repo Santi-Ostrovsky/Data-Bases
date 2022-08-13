@@ -4,6 +4,8 @@ QUERY SELECTORS
 
 Al no utilizar SQL puro, sequelize utiliza la siguiente sintaxis para hacer las consultas a la base de datos:   */
 
+const sequelize = require("sequelize");
+
 // SELECT * FROM Model
 const instancias = await Model.findAll();
 

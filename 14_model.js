@@ -92,3 +92,7 @@ Foo.init({
 });
 
 Foo.sync();
+
+// ---------------------------------------------------------
+
+// Al modelo creado, Sequelize lo va a grabar el plural ([modelo] + 's')

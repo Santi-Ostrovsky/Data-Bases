@@ -34,7 +34,7 @@ Por defecto, timestamps tiene el siguiente valor:
         updatedAt: true
     }
 
-Pueden cambiarse estos parámetros para que se muestre la información de otra manera o que algún campo no se muestre:
+Pueden cambiarse estos parámetros para que se muestre la información de otra manera o que algún campo no se muestre (lo que cambia es el nombre del campo, no el contenido):
     {
         timestamps: true,
         createdAt: false,
