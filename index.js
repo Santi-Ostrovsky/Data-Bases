@@ -35,7 +35,15 @@ async function start() {
     const User = sequelize.define("User", {
       firstName: { type: DataTypes.STRING(40) },
       lastName: { type: DataTypes.STRING(40) },
-      dni: { type: DataTypes.INTEGER, unique: true },
+      dni: {
+        type: DataTypes.INTEGER,
+        unique: true,
+        validate: {
+          min: 8,
+          max: 8,
+          // isEven(value) {if (value % 2 !== 0) throw new Error('Debe ser par')}
+        },
+      },
       gender: { type: DataTypes.ENUM("M", "F") },
       email: { type: DataTypes.STRING(200) },
     });
