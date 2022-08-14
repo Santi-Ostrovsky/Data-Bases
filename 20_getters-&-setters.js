@@ -23,4 +23,17 @@ De esta forma, el getter se invoca de forma automática cuando se quiera acceder
 
 ----------------------------------------------------------------------
 
-*/
+SETTERS
+
+Determinan cómo se guarda la información en la base de datos.       */
+
+const instance2 = sequelize.define("model", {
+  name: {
+    type: DataTypes.STRING(40),
+    set(value) {
+      this.setDataValue("lastName", value.toUpperCase());
+    },
+  },
+});
+
+// (*) --> El atributo 'name', sin importar como sea enviado el dato por el cliente, se va a guardar en mayúsculas en la base de datos.
