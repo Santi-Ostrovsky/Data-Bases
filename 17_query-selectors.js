@@ -26,9 +26,13 @@ Model.findAll({
 
 // SELECT * FROM Model WHERE clothe = 'orange' AND status = 'good';
 const instances = Model.findAll({
+  where: { clothe: "orange", status: "good" },
+});
+
+// SELECT * FROM Model WHERE clothe = 'orange' AND status = 'good';
+const instances2 = Model.findAll({
   where: {
-    clothe: "orange",
-    status: "good",
+    [Op.and]: [{ clothe: "orange" }, { status: "good" }],
   },
 });
 
